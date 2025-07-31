@@ -60,6 +60,26 @@ check_disk_space() {
     echo ""
 }
 
+# Function to take the reported data and write it to the log file. 
+log_data() {
+    local log_file="/var/log/disk_util_report.log"
+    {
+        echo "Disk Util Report - $(date)"
+        echo "==========================="
+        check_home_directory_size
+        check_disk_space
+    } >> "$log_file"
+}
+
+# Create Extension Attribute for Jamf Pro
+Create Plist() {
+    local plist_file="/Library/Application Support/JAMF/ExtensionAttributes/disk_util_report.plist"
+    /usr/bin/defaults write "$plist_file" "ReportDate" "$(date)"
+    /usr/bin/defaults write "$plist_file" "HomeDirectorySizes" "$(check_home_directory_size)"
+    /usr/bin/defaults write "$plist_file" "SystemDiskSpaceSize" "$(check_disk_space)"
+}
 # Call the function to check the size of each user's home directory
 check_home_directory_size
 check_disk_space
+# Todo: Add log to file. 
+# Todo: Add Plist export of the recorded data for Jamf To query for reporting. Extension attribute style. 
