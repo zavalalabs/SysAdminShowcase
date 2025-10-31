@@ -1,0 +1,169 @@
+name: Update README
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.sh'
+      - '**.py'
+      - '**.ps1'
+      - '.github/workflows/update-readme.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Generate README content
+        run: |
+          cat > README.md << 'EOF'
+          # SysAdminShowcase
+          This is my Personal Repository showing off finished code that is used for Systems Administration
+          
+          ## 📚 Scripts Inventory
+          
+          This repository contains various system administration scripts and tools. Below is an automatically generated inventory of available scripts:
+          
+          EOF
+          
+          # Find all shell scripts and document them
+          echo "### Shell Scripts" >> README.md
+          echo "" >> README.md
+          
+          find . -maxdepth 1 -type f -name "*.sh" ! -path "./.git/*" | sort | while read -r script; do
+            script_name=$(basename "$script")
+            echo "#### 🔧 \`$script_name\`" >> README.md
+            echo "" >> README.md
+            
+            # Extract description from comments at the top of the file
+            description=$(head -20 "$script" | grep -E "^#[^!]" | sed 's/^#//' | sed 's/^[[:space:]]*//' | grep -v "^$" | head -5)
+            
+            if [ -n "$description" ]; then
+              echo "**Description:**" >> README.md
+              echo "\`\`\`" >> README.md
+              echo "$description" >> README.md
+              echo "\`\`\`" >> README.md
+              echo "" >> README.md
+            fi
+            
+            # Extract functions from the script
+            functions=$(grep -E "^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*[[:space:]]*\(\)" "$script" | sed 's/[[:space:]]*().*$//' | sed 's/^[[:space:]]*//')
+            
+            if [ -n "$functions" ]; then
+              echo "**Functions:**" >> README.md
+              echo "$functions" | while read -r func; do
+                [ -n "$func" ] && echo "- \`$func()\`" >> README.md
+              done
+              echo "" >> README.md
+            fi
+            
+            # Check for usage examples
+            usage=$(grep -A 10 -i "usage\|example" "$script" | head -10)
+            if [ -n "$usage" ]; then
+              echo "**Usage:**" >> README.md
+              echo "\`\`\`bash" >> README.md
+              echo "./$script_name" >> README.md
+              echo "\`\`\`" >> README.md
+              echo "" >> README.md
+            fi
+            
+            echo "---" >> README.md
+            echo "" >> README.md
+          done
+          
+          # Find all PowerShell scripts
+          if find . -maxdepth 1 -type f -name "*.ps1" ! -path "./.git/*" | grep -q .; then
+            echo "### PowerShell Scripts" >> README.md
+            echo "" >> README.md
+            
+            find . -maxdepth 1 -type f -name "*.ps1" ! -path "./.git/*" | sort | while read -r script; do
+              script_name=$(basename "$script")
+              echo "#### 🔧 \`$script_name\`" >> README.md
+              echo "" >> README.md
+              
+              # Extract description from comments
+              description=$(head -20 "$script" | grep -E "^#[^!]" | sed 's/^#//' | sed 's/^[[:space:]]*//' | grep -v "^$" | head -5)
+              
+              if [ -n "$description" ]; then
+                echo "**Description:**" >> README.md
+                echo "\`\`\`" >> README.md
+                echo "$description" >> README.md
+                echo "\`\`\`" >> README.md
+                echo "" >> README.md
+              fi
+              
+              echo "---" >> README.md
+              echo "" >> README.md
+            done
+          fi
+          
+          # Find all Python scripts
+          if find . -maxdepth 1 -type f -name "*.py" ! -path "./.git/*" | grep -q .; then
+            echo "### Python Scripts" >> README.md
+            echo "" >> README.md
+            
+            find . -maxdepth 1 -type f -name "*.py" ! -path "./.git/*" | sort | while read -r script; do
+              script_name=$(basename "$script")
+              echo "#### 🔧 \`$script_name\`" >> README.md
+              echo "" >> README.md
+              
+              # Extract docstring or comments
+              description=$(head -20 "$script" | grep -E "^#|^\"\"\"|^'''" | sed 's/^#//' | sed 's/^[[:space:]]*//' | sed 's/"""//' | sed "s/'''//" | grep -v "^$" | head -5)
+              
+              if [ -n "$description" ]; then
+                echo "**Description:**" >> README.md
+                echo "\`\`\`" >> README.md
+                echo "$description" >> README.md
+                echo "\`\`\`" >> README.md
+                echo "" >> README.md
+              fi
+              
+              echo "---" >> README.md
+              echo "" >> README.md
+            done
+          fi
+          
+          # Add footer
+          cat >> README.md << 'EOF'
+          
+          ## 📋 About
+          
+          This repository serves as a showcase of production-ready system administration scripts and tools. Each script is designed to solve real-world administrative challenges and can be adapted for various environments.
+          
+          ## 🔄 Auto-Generated Documentation
+          
+          This README is automatically updated by a GitHub Actions workflow whenever scripts are added or modified. The workflow:
+          - Scans the repository for scripts (`.sh`, `.py`, `.ps1`)
+          - Extracts documentation from comments and code structure
+          - Updates this README with the inventory and descriptions
+          
+          Last updated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
+          
+          ---
+          
+          *For more information or contributions, please open an issue or pull request.*
+          EOF
+      
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --quiet README.md || echo "changed=true" >> $GITHUB_OUTPUT
+      
+      - name: Commit and push changes
+        if: steps.check_changes.outputs.changed == 'true'
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add README.md
+          git commit -m "docs: auto-update README with script documentation [skip ci]"
+          git push
