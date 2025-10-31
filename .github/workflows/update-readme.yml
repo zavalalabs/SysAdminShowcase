@@ -40,9 +40,10 @@ jobs:
           echo "### Shell Scripts" >> README.md
           echo "" >> README.md
           
-          find . -maxdepth 1 -type f -name "*.sh" ! -path "./.git/*" | sort | while read -r script; do
+          find . -type f -name "*.sh" ! -path "./.git/*" ! -path "./.github/*" | sort | while read -r script; do
             script_name=$(basename "$script")
-            echo "#### 🔧 \`$script_name\`" >> README.md
+            script_path="${script#./}"
+            echo "#### 🔧 \`$script_path\`" >> README.md
             echo "" >> README.md
             
             # Extract description from comments at the top of the file (excluding shebang)
@@ -72,7 +73,7 @@ jobs:
             if [ -n "$usage" ]; then
               echo "**Usage:**" >> README.md
               echo "\`\`\`bash" >> README.md
-              echo "./$script_name" >> README.md
+              echo "./$script_path" >> README.md
               echo "\`\`\`" >> README.md
               echo "" >> README.md
             fi
@@ -82,13 +83,14 @@ jobs:
           done
           
           # Find all PowerShell scripts
-          if find . -maxdepth 1 -type f -name "*.ps1" ! -path "./.git/*" | grep -q .; then
+          if find . -type f -name "*.ps1" ! -path "./.git/*" ! -path "./.github/*" | grep -q .; then
             echo "### PowerShell Scripts" >> README.md
             echo "" >> README.md
             
-            find . -maxdepth 1 -type f -name "*.ps1" ! -path "./.git/*" | sort | while read -r script; do
+            find . -type f -name "*.ps1" ! -path "./.git/*" ! -path "./.github/*" | sort | while read -r script; do
               script_name=$(basename "$script")
-              echo "#### 🔧 \`$script_name\`" >> README.md
+              script_path="${script#./}"
+              echo "#### 🔧 \`$script_path\`" >> README.md
               echo "" >> README.md
               
               # Extract description from comments
@@ -108,13 +110,14 @@ jobs:
           fi
           
           # Find all Python scripts
-          if find . -maxdepth 1 -type f -name "*.py" ! -path "./.git/*" | grep -q .; then
+          if find . -type f -name "*.py" ! -path "./.git/*" ! -path "./.github/*" | grep -q .; then
             echo "### Python Scripts" >> README.md
             echo "" >> README.md
             
-            find . -maxdepth 1 -type f -name "*.py" ! -path "./.git/*" | sort | while read -r script; do
+            find . -type f -name "*.py" ! -path "./.git/*" ! -path "./.github/*" | sort | while read -r script; do
               script_name=$(basename "$script")
-              echo "#### 🔧 \`$script_name\`" >> README.md
+              script_path="${script#./}"
+              echo "#### 🔧 \`$script_path\`" >> README.md
               echo "" >> README.md
               
               # Extract docstring or comments

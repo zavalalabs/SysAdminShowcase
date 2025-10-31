@@ -35,7 +35,7 @@ jobs:
           for osver in "${!names[@]}"; do
             pkg=$(grep "${names[$osver]}" urls.txt | head -n1)
             if [[ -n "$pkg" ]]; then
-              sed -i "s|https://github.com/macports/macports-base/releases/download/.*MacPorts-[0-9.]*-${osver}-.*.pkg|$pkg|" MacPortsAutoDetectInstall.sh
+              sed -i "s|https://github.com/macports/macports-base/releases/download/.*MacPorts-[0-9.]*-${osver}-.*.pkg|$pkg|" Apple-macOS/MacPortsAutoDetectInstall.sh
             fi
           done
 
@@ -45,10 +45,10 @@ jobs:
           # These are no longer receiving security updates
           
           # Remove from install_macports function
-          sed -i '/elif \[\[ "\$osVersion" == 1[0-2]\* \]\]; then/,/^    elif\|^    else\|^    fi/{//!d; /elif \[\[ "\$osVersion" == 1[0-2]\* \]\]; then/d}' MacPortsAutoDetectInstall.sh
+          sed -i '/elif \[\[ "\$osVersion" == 1[0-2]\* \]\]; then/,/^    elif\|^    else\|^    fi/{//!d; /elif \[\[ "\$osVersion" == 1[0-2]\* \]\]; then/d}' Apple-macOS/MacPortsAutoDetectInstall.sh
           
           # Remove from upgrade_macports function
-          sed -i '/elif \[\[ "\$osVersion" == 1[0-2]\* \]\]; then/,/^    elif\|^    else\|^    fi/{//!d; /elif \[\[ "\$osVersion" == 1[0-2]\* \]\]; then/d}' MacPortsAutoDetectInstall.sh
+          sed -i '/elif \[\[ "\$osVersion" == 1[0-2]\* \]\]; then/,/^    elif\|^    else\|^    fi/{//!d; /elif \[\[ "\$osVersion" == 1[0-2]\* \]\]; then/d}' Apple-macOS/MacPortsAutoDetectInstall.sh
           
           echo "Removed legacy macOS versions (10.x, 11.x, 12.x) - no longer receiving security updates"
 
@@ -56,7 +56,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add MacPortsAutoDetectInstall.sh
+          git add Apple-macOS/MacPortsAutoDetectInstall.sh
           if git diff --cached --quiet; then
             echo "No updates needed"
           else
