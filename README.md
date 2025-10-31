@@ -7,6 +7,44 @@ This repository contains various system administration scripts and tools. Below 
 
 ### Shell Scripts
 
+#### 🔧 `Apple-macOS/MacPortsAutoDetectInstall.sh`
+
+**Description:**
+```
+This is a cleaned up and sanatized version of my original scrypt for showcase & sharing purposes.
+Originally Developed for my support of scientific research users. 
+TThis script's goal was to make it so a apple systems administrator didn't have to use composer to build
+out a custom installer each time a new macos version was release. This script as of 10/30/2025 now has some
+automation to upgrade the github urls from teh macports procject to the latest version. This was done
+```
+
+**Functions:**
+- `check_os_version()`
+- `check_macports_installed()`
+- `backup_macports()`
+- `install_macports()`
+
+---
+
+#### 🔧 `Apple-macOS/appleDiskUtil.sh`
+
+**Description:**
+```
+The goal of this script is to find the storage utilization of a macOS system. 
+A common issue is that /Applications take up a huge amount of disk space
+with that being said. User storage typically suffers as a result. 
+So the real question comes down to "What's in the user's directory," and how 
+does that influence the system selection for purchasing end-user compute?
+```
+
+**Functions:**
+- `check_home_directory_size()`
+- `check_disk_space()`
+- `log_data()`
+- `Create Plist()`
+
+---
+
 
 ## 📋 About
 
