@@ -45,8 +45,8 @@ jobs:
             echo "#### 🔧 \`$script_name\`" >> README.md
             echo "" >> README.md
             
-            # Extract description from comments at the top of the file
-            description=$(head -20 "$script" | grep -E "^#[^!]" | sed 's/^#//' | sed 's/^[[:space:]]*//' | grep -v "^$" | head -5)
+            # Extract description from comments at the top of the file (excluding shebang)
+            description=$(head -20 "$script" | grep -E "^#[^!#]" | sed 's/^#//' | sed 's/^[[:space:]]*//' | grep -v "^$" | head -5)
             
             if [ -n "$description" ]; then
               echo "**Description:**" >> README.md
@@ -56,8 +56,8 @@ jobs:
               echo "" >> README.md
             fi
             
-            # Extract functions from the script
-            functions=$(grep -E "^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_]*[[:space:]]*\(\)" "$script" | sed 's/[[:space:]]*().*$//' | sed 's/^[[:space:]]*//')
+            # Extract functions from the script (including function names with spaces)
+            functions=$(grep -E "^[[:space:]]*[a-zA-Z_][a-zA-Z0-9_ ]*[[:space:]]*\(\)" "$script" | sed 's/[[:space:]]*().*$//' | sed 's/^[[:space:]]*//')
             
             if [ -n "$functions" ]; then
               echo "**Functions:**" >> README.md

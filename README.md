@@ -21,6 +21,7 @@ Function to check the size of each user's home directory
 - `check_home_directory_size()`
 - `check_disk_space()`
 - `log_data()`
+- `Create Plist()`
 
 **Usage:**
 ```bash
@@ -41,7 +42,7 @@ This README is automatically updated by a GitHub Actions workflow whenever scrip
 - Extracts documentation from comments and code structure
 - Updates this README with the inventory and descriptions
 
-Last updated: 2025-10-31 15:42:01 UTC
+Last updated: 2025-10-31 15:45:19 UTC
 
 ---
 
