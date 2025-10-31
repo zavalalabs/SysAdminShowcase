@@ -11,10 +11,8 @@ This repository contains various system administration scripts and tools. Below 
 
 **Description:**
 ```
-What data do we actually need. 
-Toal space and Toatl free space of the instaleld disk, need to exclude any external drives
-This example shows my revisions and a revision by another Systems Administrator
-Function to check the size of each user's home directory
+The goal of this script is to find the storage utilization of a macOS system. A common issue is that /Applications take up a huge amount of disk space
+with that being said. User storage typically suffers as a result. So the real question comes down to "What's in the user's directory" and how does that influence the system selection for purchasing end user compute?
 ```
 
 **Functions:**
@@ -22,11 +20,6 @@ Function to check the size of each user's home directory
 - `check_disk_space()`
 - `log_data()`
 - `Create Plist()`
-
-**Usage:**
-```bash
-./appleDiskUtil.sh
-```
 
 ---
 
