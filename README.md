@@ -42,7 +42,7 @@ This README is automatically updated by a GitHub Actions workflow whenever scrip
 - Extracts documentation from comments and code structure
 - Updates this README with the inventory and descriptions
 
-Last updated: 2025-10-31 15:45:19 UTC
+Last updated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
 
 ---
 
