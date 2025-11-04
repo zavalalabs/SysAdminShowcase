@@ -1,5 +1,6 @@
 # SysAdminShowcase
-This is my Personal Repository showing off finished code that is used for Systems Administration
+This is my Personal Repository showing off finished code that is used for Systems Administration. I have worked on these scripts to solve real world problems and challenges that I have faced in my career as a Systems Administrator.
+As I worked with these scripts I have worked from both learning how to use bash scripting from youtube videos and then leveraging that knowledge to then work with modern AI utilities to reinge and work thorugh the configuration challanges and see how my basic understanding of bash is able to be leveraged with other methodologies that AI presents. 
 
 ## 📚 Scripts Inventory
 
