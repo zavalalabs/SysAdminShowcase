@@ -1,4 +1,8 @@
 # SysAdminShowcase
+
+![Update README](https://github.com/zavalalabs/SysAdminShowcase/actions/workflows/update-readme.yml/badge.svg)
+![Update MacPorts URLs](https://github.com/zavalalabs/SysAdminShowcase/actions/workflows/update-macports.yml/badge.svg)
+
 This is my Personal Repository showing off finished code that is used for Systems Administration
 
 ## 📚 Scripts Inventory
