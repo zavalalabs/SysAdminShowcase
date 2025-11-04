@@ -6,6 +6,9 @@
 # out a custom installer each time a new macos version was release. This script as of 10/30/2025 now has some
 # automation to upgrade the github urls from teh macports procject to the latest version. This was done
 # to reduce the issue of certificate revocation and legacy applications not being supported. 
+# This work was originally concieved before popular application repository tools such as alectrona, or jamf app packages or data jar
+ # became avaialble to organizations that had tight budgets. 
+ # Credit: Chris zavala github: zavalalabs
 
 # Function to check OS version and store it
 check_os_version() {
