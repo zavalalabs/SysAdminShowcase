@@ -1,8 +1,4 @@
 # SysAdminShowcase
-
-![Update README](https://github.com/zavalalabs/SysAdminShowcase/actions/workflows/update-readme.yml/badge.svg)
-![Update MacPorts URLs](https://github.com/zavalalabs/SysAdminShowcase/actions/workflows/update-macports.yml/badge.svg)
-
 This is my Personal Repository showing off finished code that is used for Systems Administration
 
 ## 📚 Scripts Inventory
@@ -17,7 +13,7 @@ This repository contains various system administration scripts and tools. Below 
 ```
 This is a cleaned up and sanatized version of my original scrypt for showcase & sharing purposes.
 Originally Developed for my support of scientific research users. 
-TThis script's goal was to make it so a apple systems administrator didn't have to use composer to build
+This script's goal was to make it so a apple systems administrator didn't have to use composer to build
 out a custom installer each time a new macos version was release. This script as of 10/30/2025 now has some
 automation to upgrade the github urls from teh macports procject to the latest version. This was done
 ```
