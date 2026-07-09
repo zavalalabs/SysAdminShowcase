@@ -63,3 +63,11 @@ Last updated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
 ---
 
 *For more information or contributions, please open an issue or pull request.*
+
+## License
+
+Copyright 2025-2026 Chris Zavala (Zavala Labs). Created, designed, and
+conceived by Chris Zavala.
+
+Licensed under the [Apache License 2.0](LICENSE). The attribution notices
+in [NOTICE](NOTICE) must be preserved in all copies and derivative works.
